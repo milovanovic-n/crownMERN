@@ -1,0 +1,60 @@
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  max-width: 380px;
+  margin: 0 auto;
+
+  .title {
+    margin: 10px 0;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+
+    .register {
+      display: flex;
+      align-items: flex-end;
+
+      p {
+        margin: 0;
+
+      }
+
+      .btn {
+        font-weight: bold;
+        margin: 0 5px;
+        color: #0295F6;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .errors {
+    color: red;
+  }
+}
+
+
+@media screen and(max-width: 380px) {
+  .sign-in {
+    padding: 0 15px;
+
+    .title {
+      margin: 7px 0;
+      font-size: 1.3rem;
+    }
+
+    .subtitle {
+      font-size: 15px;
+    }
+
+    .buttons {
+
+      p {
+        display: none;
+      }
+    }
+  }
+}
