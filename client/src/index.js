@@ -11,7 +11,7 @@ import './index.css';
 
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql"
+  uri: "https://crown-store110.herokuapp.com/graphql"
 });
 
 const authLink = setContext(() => {
