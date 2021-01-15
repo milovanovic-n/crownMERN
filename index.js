@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const { graphqlHTTP } = require("express-graphql");
 const compression = require("compression");
+const enforce = require("express-sslify");
 const PORT = process.env.PORT || 4000;
 const path = require("path");
 const schema = require("./schema/schema");
@@ -22,8 +23,6 @@ const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 // Init app
 const app = express();
-// Compression
-app.use(compression());
 // Body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -32,6 +31,11 @@ app.use(cors());
 
 // For production
 if(process.env.NODE_ENV === "production") {
+  // Compression
+  app.use(compression());
+  // Express-SSLify
+  app.use(enforce.HTTPS({trustProtoHeader: true}));
+
   app.use(express.static(path.join(__dirname, "client/build")));
 
   app.get("*", function(req, res) {
@@ -63,6 +67,11 @@ app.post("/payment", (req, res) => {
       res.status(200).send({success: stripeRes})
     }
   });
+});
+
+// Service Worker
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "..", "build", "service-worker.js"));
 });
 
 app.listen(PORT, () => {

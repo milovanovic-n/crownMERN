@@ -6,6 +6,7 @@ import {setContext} from "apollo-link-context";
 import {AuthProvider} from "./context/auth";
 import {CartProvider} from "./context/cart/cart.reducer";
 import App from './App/App';
+import * as serviceWorker from "./serviceWorkerRegistration";
 
 import './index.css';
 
@@ -41,3 +42,5 @@ ReactDOM.render(
   </ApolloProvider>,
   document.getElementById('root')
 );
+
+serviceWorker.register();
