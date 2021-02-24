@@ -1,16 +1,22 @@
 import React from 'react';
-import './homepage.styles.scss';
+import {
+  HomepageContainer
+} from "./homepage.styles"
 
 import Directory from '../../components/directory/directory.component';
 import Carousel from "../../components/carousel/carousel.component";
 import ShippingInfo from "../../components/shipping-info/shipping-info.component";
+import FeaturedProducts from "../../components/featured-products/featured-products.component";
+import Footer from "../../components/footer/footer.component";
 
 const HomePage = () => (
-  <div className='homepage'>
+  <HomepageContainer>
     <Carousel />
     <ShippingInfo />
     <Directory />
-  </div>
+    <FeaturedProducts />
+    <Footer />
+  </HomepageContainer>
 );
 
 export default HomePage;
