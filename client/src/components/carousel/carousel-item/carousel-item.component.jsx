@@ -35,7 +35,7 @@ const CarouselItem = ({item}) => {
       <DescriptionSubtitle>{item.subtitle}</DescriptionSubtitle>
       <DescriptionTitle>{breakTitle(item.title).first}</DescriptionTitle>
       <DescriptionTitle>{breakTitle(item.title).other}</DescriptionTitle>
-      <CarouselItemLink>view collection</CarouselItemLink>
+      <CarouselItemLink to={"/shop"}>view collection</CarouselItemLink>
     </CarouselItemDescription>
   </CarouselItemContainer>
 )};

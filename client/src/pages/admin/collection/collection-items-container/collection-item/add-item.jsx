@@ -1,59 +1,17 @@
-import React, {useState} from "react";
-import {gql, useQuery, useMutation} from "@apollo/client";
+import React, { useState } from "react";
+import { useQuery, useMutation} from "@apollo/client";
+import {
+  AddItemForm,
+  AddItemSelectCollection,
+  AddItemButton
+} from "./item.styles";
+import {
+  ADD_ITEM,
+  GET_ITEMS_BY_COLLECTION,
+  GET_COLLECTIONS
+} from "../../../../../graphql/graphql";
 
-import FormInput from "../../../components/form-input/form-input.component";
-
-import "./add-item.styles.scss";
-
-// ADD ITEM MUTATION
-const ADD_ITEM = gql`
-  mutation AddItem(
-    $name: String! 
-    $imageUrl: String! 
-    $price: Int! 
-    $collectionId: ID!
-  ) {
-    addItem(
-      name: $name 
-      imageUrl: $imageUrl 
-      price: $price 
-      collectionId: $collectionId
-    ) {
-      id
-      name
-      imageUrl
-      price
-      collection {
-        id
-        title
-      }
-    }
-  }
-`;
-// GET ITEMS QUERY
-const GET_ITEMS = gql`
-  {
-    items {
-      id
-      name
-      imageUrl
-      price
-      collection {
-        id
-        title
-      }
-    }
-  }
-`;
-// GET COLLECTIONS QUERY
-const GET_COLLECTIONS = gql`
-  {
-    collections {
-      id
-      title
-    }
-  }
-`;
+import FormInput from "../../../../../components/form-input/form-input.component";
 
 
 const AddItem = () => {
@@ -65,7 +23,6 @@ const AddItem = () => {
   });
 
   const {name, imageUrl, price, collectionId} = state;
-
   const {loading, data} = useQuery(GET_COLLECTIONS);
   const [addItem] = useMutation(ADD_ITEM);
 
@@ -87,7 +44,7 @@ const AddItem = () => {
           price: newPrice,
           collectionId
         },
-        refetchQueries: [{query: GET_ITEMS}]
+        refetchQueries: [{query: GET_ITEMS_BY_COLLECTION, variables: {collection: collectionId}}]
       });
       setState({
         name: "",
@@ -110,7 +67,7 @@ const AddItem = () => {
 
   return (
     <div>
-      <form className="add__form" onSubmit={handleSubmit}>
+      <AddItemForm onSubmit={handleSubmit}>
         <FormInput 
           name="name"
           type="text"
@@ -119,7 +76,6 @@ const AddItem = () => {
           label="Product title"
           required
         />
-
         <FormInput 
           name="imageUrl"
           type="text"
@@ -128,7 +84,6 @@ const AddItem = () => {
           label="Image url"
           required
         />
-
         <FormInput
           name="price"
           type="number"
@@ -137,16 +92,14 @@ const AddItem = () => {
           label="Price"
           required
         />
-
-        <select className="select__collection" multiple={false} name="collectionId" value={collectionId} onChange={handleChange} required>
+        <AddItemSelectCollection multiple={false} name="collectionId" value={collectionId} onChange={handleChange} required>
           <option>Select Collection</option>
           {
             displayCollections()
           }
-        </select>
-
-        <button className="add__item__btn">+</button>
-      </form>
+        </AddItemSelectCollection>
+        <AddItemButton>+</AddItemButton>
+      </AddItemForm>
     </div>
   )
 };

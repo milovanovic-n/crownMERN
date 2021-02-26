@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const CarouselItemContainer = styled.div`
   width: 100%;
@@ -62,7 +63,7 @@ export const DescriptionTitle = styled.div`
   }
 `;
 
-export const CarouselItemLink = styled.div`
+export const CarouselItemLink = styled(Link)`
   margin-top: 20px;
   font-family: 'Raleway', sans-serif;
   font-size: 13px;

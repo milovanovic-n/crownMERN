@@ -55,6 +55,7 @@ const ItemType = new GraphQLObjectType({
     name: {type: GraphQLString},
     imageUrl: {type: GraphQLString},
     price: {type: GraphQLInt},
+    featured: {type: GraphQLBoolean},
     collection: {
       type: CollectionType,
       resolve(parent, args) {
@@ -120,6 +121,21 @@ const queryType = new GraphQLObjectType({
       },
       resolve: (parent, {title}) => {
         return Collection.findOne({title: title});
+      }
+    },
+    getItemsByCollection: {
+      type: new GraphQLList(ItemType),
+      args: {
+        collection: {type: GraphQLID}
+      },
+      resolve(parent, { collection }) {
+        return Item.find({collectionId: collection})
+      }
+    },
+    getFeaturedItems: {
+      type: new GraphQLList(ItemType),
+      resolve(parent, args) {
+        return Item.find({featured: true})
       }
     },
     items: {
@@ -250,9 +266,10 @@ const Mutation = new GraphQLObjectType({
         name: {type: new GraphQLNonNull(GraphQLString)},
         imageUrl: {type: new GraphQLNonNull(GraphQLString)},
         price: {type: new GraphQLNonNull(GraphQLInt)},
+        featured: {type: new GraphQLNonNull(GraphQLBoolean)},
         collectionId: {type: new GraphQLNonNull(GraphQLID)}
       },
-      async resolve(parent, {id, name, imageUrl, price, collectionId}, context) {
+      async resolve(parent, {id, name, imageUrl, featured, price, collectionId}, context) {
         const user = checkAuth(context);
 
         if(user && user.isAdmin) {
@@ -261,6 +278,7 @@ const Mutation = new GraphQLObjectType({
               name,
               imageUrl,
               price,
+              featured,
               collectionId
             });
             return updatedItem;

@@ -1,13 +1,15 @@
 import React from 'react';
-import FEATURED_PRODUCTS_DATA from "./featured-products.data";
+import { useQuery } from "@apollo/client";
 import {
   FeaturedProductsContainer,
   FeaturedProductsHeader,
   SliderContainer
 } from "./featured-products.styles";
-import FeaturedItem from "./featured-item/featured-item.component";
+import { GET_FEATURED_ITEMS } from "../../graphql/graphql";
 
-const backgroundImage = `https://images.unsplash.com/photo-1516557070061-c3d1653fa646?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80`;
+import FeaturedItem from "./featured-item/featured-item.component";
+import Spinner from "../spinner/spinner.component";
+const backgroundImage = `https://images.pexels.com/photos/1787044/pexels-photo-1787044.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`;
 const breakPoints = [
   { width: 1, itemsToShow: 1 },
   { width: 420, itemsToShow: 2, itemsToScroll: 2 },
@@ -16,7 +18,12 @@ const breakPoints = [
 ];
 
 
-const FeaturedProducts = () => (
+const FeaturedProducts = () => {
+  const { loading, data } = useQuery(GET_FEATURED_ITEMS);
+
+  if(loading || !data) return <Spinner />
+
+  return (
   <FeaturedProductsContainer imageUrl={backgroundImage}>
     <FeaturedProductsHeader>featured products</FeaturedProductsHeader>
         <SliderContainer 
@@ -24,12 +31,12 @@ const FeaturedProducts = () => (
           className="slider__carousel"
         >
           {
-            FEATURED_PRODUCTS_DATA.map((item) => (
+            data.getFeaturedItems.map((item) => (
               <FeaturedItem key={item.id} item={item}/>
             ))
           }
         </SliderContainer>
   </FeaturedProductsContainer>
-);
+)};
 
 export default FeaturedProducts;

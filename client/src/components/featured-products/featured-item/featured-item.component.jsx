@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CartContext } from "../../../context/cart/cart.reducer";
 import { 
   FeaturedItemContainer,
   ItemImageContainer,
@@ -10,11 +11,14 @@ import { ReactComponent as ShoppingBag } from "./shopping-bag.svg";
 
 
 const FeaturedItem = ({item}) => {
+  const { name, price, imageUrl } = item;
+  const {addItem} = useContext(CartContext);
+
   return (
     <FeaturedItemContainer>
-      <ItemImageContainer imageUrl={item.imageUrl} />
+      <ItemImageContainer imageUrl={imageUrl} />
       <ItemOptionsContainer className="item__options">
-        <div className="add__to__cart" title="ADD TO CART">
+        <div onClick={() => addItem(item)} className="add__to__cart" title="ADD TO CART">
           <ShoppingBag className="add__to__cart__icon"/> add to cart
         </div>
         <div className="add__to__whishlist" title="ADD TO WHISHLIST">
@@ -24,8 +28,8 @@ const FeaturedItem = ({item}) => {
           <i className="fas fa-search"></i>
         </div>
       </ItemOptionsContainer>
-      <ItemNameContainer>{item.name}</ItemNameContainer>
-      <ItemPriceContainer>${item.price}</ItemPriceContainer>
+      <ItemNameContainer>{name}</ItemNameContainer>
+      <ItemPriceContainer>${price}</ItemPriceContainer>
     </FeaturedItemContainer>
   )
 };

@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
-import { Link } from 'react-router-dom';
-
+import { withRouter, Link } from 'react-router-dom';
 import {AuthContext} from "../../context/auth";
 import {CartContext} from "../../context/cart/cart.reducer";
 
@@ -11,7 +10,7 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import './header.styles.scss'; 
 
 
-const Header = () => {
+const Header = ({history}) => {
   const {user, logout} = useContext(AuthContext);
   const {hidden} = useContext(CartContext);
   return(
@@ -23,12 +22,19 @@ const Header = () => {
       <Link className='option' to='/shop'>
         SHOP
       </Link>
+      {
+        user && user.isAdmin ? (
+          <div className='option' onClick={() => history.push("/admin")}>
+            ADMIN
+          </div>
+        ) : null
+      }
       {user ? (
-        <div className='option' onClick={logout}>
+        <div className='option last' onClick={logout}>
           SIGN OUT
         </div>
       ) : (
-        <Link className='option' to='/signin'>
+        <Link className='option last' to='/signin'>
           SIGN IN
         </Link>
       )}
@@ -38,4 +44,4 @@ const Header = () => {
   </div>
 )};
 
-export default Header;
+export default withRouter(Header);

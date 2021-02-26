@@ -1,28 +1,16 @@
 import React, {useState} from "react";
-import {gql, useMutation} from "@apollo/client";
+import { useMutation} from "@apollo/client";
+import {
+ ADD_COLLECTION,
+ GET_COLLECTIONS
+} from "../../../../graphql/graphql";
+import {  
+  AddCollectionForm,
+  AddCollectionButton
+} from "./add-collection.styles";
 
-import FormInput from "../../../components/form-input/form-input.component";
+import FormInput from "../../../../components/form-input/form-input.component";
 
-import "./add-collection.styles.scss";
-
-
-const ADD_COLLECTION = gql`
-  mutation AddCollection($title: String!) {
-    addCollection(title: $title) {
-      id
-      title
-    }
-  }
-`;
-
-const GET_COLLECTIONS = gql`
-  {
-    collections {
-      id
-      title
-    }
-  }
-`;
 
 const AddCollection = () => {
   const [state, setState] = useState({
@@ -53,7 +41,7 @@ const AddCollection = () => {
 
   return(
     <div>
-      <form className="add__form" onSubmit={handleSubmit}>
+      <AddCollectionForm onSubmit={handleSubmit}>
         <FormInput 
           name='title'
           type='text'
@@ -62,8 +50,8 @@ const AddCollection = () => {
           label='Collection title'
           required
         />
-        <button className="add__collection__btn">+</button>
-      </form>
+        <AddCollectionButton>+</AddCollectionButton>
+      </AddCollectionForm>
     </div>
   )
 };

@@ -5,6 +5,7 @@ const itemSchema = new Schema({
   name: String,
   price: Number,
   imageUrl: String,
+  featured: {type: Boolean, default: false},
   collectionId: String
 });
 

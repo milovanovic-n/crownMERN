@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { withRouter } from "react-router-dom";
 import "./directory.styles.scss";
 import {DIRECTORY_DATA_1, DIRECTORY_DATA_2} from "./directory.data";
 
 
-const Directory = () => (
+const Directory = ({history}) => (
   <div className="directory">
     {/* FIRST PART */}
     <div className="directory1">
@@ -16,7 +17,7 @@ const Directory = () => (
               <h3 className="item1__title">{item.title}</h3>
               <h4 className="item1__subtitle">collection</h4>
               <div className="item1__subtitle-line" />
-              <p className="item1__btn">shop now</p>
+              <p className="item1__btn" onClick={() => history.push(item.linkUrl)}>shop now</p>
             </div>
           </div>
         ))
@@ -36,7 +37,7 @@ const Directory = () => (
                 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
                 Integer interdum sem ac magna.
               </p>
-              <p className="item2__btn">check it out</p>
+              <p className="item2__btn" onClick={() => history.push(item.linkUrl)}>check it out</p>
             </div>
             <div className="item2__img-container">
               <img className="item2__img" src={item.imageUrl} alt={item.title} />
@@ -50,4 +51,4 @@ const Directory = () => (
   </div>
 );
 
-export default Directory;
+export default withRouter(Directory);
