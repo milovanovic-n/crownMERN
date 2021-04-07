@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import {setContext} from "apollo-link-context";
-import {AuthProvider} from "./context/auth";
-import {CartProvider} from "./context/cart/cart.reducer";
+import { setContext } from "apollo-link-context";
+import { AuthProvider } from "./context/auth";
+import { CartProvider } from "./context/cart/cart.reducer";
+import { WishlistProvider } from "./context/wishlist/wishlist.reducer";
 import App from './App/App';
 import * as serviceWorker from "./serviceWorkerRegistration";
 
@@ -36,7 +37,9 @@ ReactDOM.render(
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <App />
+          <WishlistProvider>
+            <App />
+          </WishlistProvider>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>

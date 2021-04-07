@@ -1,21 +1,24 @@
 import React from 'react';
 
+import {
+  CollectionPageContainer,
+  CollectionPageTitle,
+  CollectionPageItemsContainer
+} from "./collection.styles";
 import CollectionItem from '../../components/collection-item/collection-item.component';
 
-import './collection.styles.scss';
 
-
-const CollectionPage = ({ collection }) => {
+const CollectionPage = ({ collection, match }) => {
   const { title, items } = collection;
   return (
-    <div className='collection-page'>
-      <h2 className='title'>{title}</h2>
-      <div className='items'>
+    <CollectionPageContainer>
+      <CollectionPageTitle>{title}</CollectionPageTitle>
+      <CollectionPageItemsContainer>
         {items.map(item => (
           <CollectionItem key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </CollectionPageItemsContainer>
+    </CollectionPageContainer>
   );
 };
 

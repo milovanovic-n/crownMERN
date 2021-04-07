@@ -21,6 +21,11 @@
     .option {
       padding: 10px 15px;
       cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
     }
 
     .last {

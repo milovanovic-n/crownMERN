@@ -26,6 +26,22 @@ export const GET_COLLECTION_BY_ID = gql`
   }
 `;
 
+export const GET_COLLECTION_BY_TITLE = gql`
+  query GetCollectionByTitle($title: String!) {
+    getCollectionByTitle(title: $title){
+      id 
+      title
+      items {
+        id
+        name
+        imageUrl
+        price
+      }
+    }
+  }
+`;
+
+
 export const ADD_COLLECTION = gql`
   mutation AddCollection($title: String!) {
     addCollection(title: $title) {
@@ -147,7 +163,7 @@ export const UPDATE_ITEM = gql`
       featured: $featured
       collectionId: $collectionId
     ) {
-      id name imageUrl price collection {
+      id name imageUrl price featured collection {
         id
         title
       }

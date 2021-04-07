@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery } from "@apollo/client";
+import { GET_FEATURED_ITEMS } from "../../graphql/graphql";
+
 import {
   FeaturedProductsContainer,
   FeaturedProductsHeader,
   SliderContainer
 } from "./featured-products.styles";
-import { GET_FEATURED_ITEMS } from "../../graphql/graphql";
-
-import FeaturedItem from "./featured-item/featured-item.component";
+import CollectionItem from "../collection-item/collection-item.component";
 import Spinner from "../spinner/spinner.component";
 const backgroundImage = `https://images.pexels.com/photos/1787044/pexels-photo-1787044.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940`;
 const breakPoints = [
@@ -32,7 +32,7 @@ const FeaturedProducts = () => {
         >
           {
             data.getFeaturedItems.map((item) => (
-              <FeaturedItem key={item.id} item={item}/>
+              <CollectionItem featured={true} key={item.id} item={item}/>
             ))
           }
         </SliderContainer>

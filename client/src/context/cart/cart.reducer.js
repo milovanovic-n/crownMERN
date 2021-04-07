@@ -1,11 +1,12 @@
-import React, {createContext, useReducer} from "react";
+import React, { createContext, useReducer } from "react";
 import CartActionTypes from './cart.types';
 import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
   hidden: true,
-  cartItems: []
+  cartItems: [],
 };
+
 
 if(localStorage.getItem("cartItems")){
   const items = localStorage.getItem("cartItems");
@@ -13,7 +14,8 @@ if(localStorage.getItem("cartItems")){
   INITIAL_STATE.cartItems = parsedItems;
 } else {
   INITIAL_STATE.cartItems = []
-}
+} 
+
 
 const CartContext = createContext({
   hidden: true,
@@ -54,7 +56,6 @@ function cartReducer(state = INITIAL_STATE, action) {
 
 function CartProvider(props) {
   const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
-
   const { cartItems } = state;
   const cartItemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const cartTotal = cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0);
@@ -101,4 +102,4 @@ function CartProvider(props) {
   )
 };
 
-export {CartContext, CartProvider}
+export { CartContext, CartProvider }

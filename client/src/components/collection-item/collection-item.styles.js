@@ -1,53 +1,88 @@
 import styled from "styled-components";
 
-export const FeaturedItemContainer = styled.div`
+export const CollectionItemContainer = styled.div`
+  width: ${props => props.featured ? "100%" : "22vw"}; 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 360px;
   align-items: center;
-  height: 380px;
-  width: 100%;
-  margin: 0 10px 30px;
+  margin: ${props => props.featured ? "0 10px 30px" : ""};
   position: relative;
-
-  @media (min-width: 992px) {
-    height: 450px;
-  }
 
   &:hover {
     .item__options {
       display: flex;
     }
   }
+
+  @media (max-width: 800px) {
+    width: 40vw;
+  }
+
+  @media (max-width: 600px) {
+    height: 280px;
+  }
+
+  @media (max-width: 380px) {
+    width: 70vw;
+  }
+
+  @media (min-width: 1200px) {
+    height: 400px;
+  }
 `;
 
-export const ItemImageContainer = styled.div`
+export const CollectionItemImage = styled.div`
   width: 100%;
-  height: 85%;
+  height: 95%;
   background-image: url(${props => props.imageUrl ? props.imageUrl : ""});
-  filter: grayscale(0);
-  background-position: center;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+  margin-bottom: ${props => props.featured ? "" : "5px"};
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 800px) {
+    opacity: unset;
+  }
 `;
 
-export const ItemOptionsContainer = styled.div`
-  font-family: 'Raleway', sans-serif;
-  display: flex;
+export const CollectionItemFooter = styled.div`
   width: 100%;
-  height: 40px;
-  background-color: #638683;
+  height: 5%;
+  display: ${props => props.featured ? "none" : "flex"};
+  justify-content: space-between;
+  font-size: 18px;
+
+  .name {
+    width: 90%;
+    margin-bottom: 15px;
+  }
+
+  .price {
+    width: 10%;
+  }
+`;
+
+export const CollectionItemOptions = styled.div`
+  font-family: 'Raleway', sans-serif;
+  display: none;
+  width: 100%;
+  height: 45px;
+  background-color: black;
   color: white;
   position: absolute;
-  bottom: 12%;
-  display: none;
+  bottom: ${props => props.featured ? "5%" : "6%"};
 
   @media (max-width: 600px) {
     display: flex;
   }
 
   .add__to__cart {
-    width: 50%;
+    width: 60%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -68,7 +103,7 @@ export const ItemOptionsContainer = styled.div`
   }
 
   .add__to__whishlist, .quick__view {
-    width: 25%;
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,8 +116,8 @@ export const ItemOptionsContainer = styled.div`
   }
 
   .add__to__whishlist {
-    border-right: 1px solid #56706e;
-    border-left: 1px solid #56706e;
+    border-right: 1px solid #232323;
+    border-left: 1px solid #232323;
   }
 `;
 
@@ -96,15 +131,4 @@ export const ItemNameContainer = styled.h4`
   color: white;
   text-transform: uppercase;
   align-self: flex-start;
-`;
-
-export const ItemPriceContainer = styled.div`
-  margin: 0;
-  height: 5%;
-  padding-top: 2%;
-  align-self: flex-start;
-  font-family: 'Raleway', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: white;
 `;

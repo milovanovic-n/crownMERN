@@ -8,12 +8,16 @@ import './collection-preview.styles.scss';
 
 const CollectionPreview = ({ title, items, history, match }) => (
   <div className='collection-preview'>
-    <h1
-      className='title'
-      onClick={() => history.push(`${match.path}/${title.toLowerCase()}`)}
-    >
-      {title}
-    </h1>
+    <div className="title__container">
+      <h1
+        className='title'
+        title="View Collection"
+        onClick={() => history.push(`${match.path}/${title.toLowerCase()}`)}
+      >
+        {title}
+        <i className="fas fa-long-arrow-alt-right"></i>
+      </h1>
+    </div>
     <div className='preview'>
       {items
         .filter((item, idx) => idx < 4)

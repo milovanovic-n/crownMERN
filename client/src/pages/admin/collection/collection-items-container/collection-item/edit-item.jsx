@@ -48,6 +48,7 @@ const UpdateItem = ({match}) => {
         imageUrl: imageUrl ? imageUrl : data.item.imageUrl,
         price: price ? newPrice : data.item.price,
         featured: data.item.featured,
+        isOnWishlist: data.item.inOnWishlist,
         collectionId: collectionId ? collectionId : data.item.collection.id
       },
       refetchQueries: [{query: GET_ITEM_BY_ID, variables: {id: data.item.id}}]
@@ -90,6 +91,7 @@ const UpdateItem = ({match}) => {
         imageUrl: item.imageUrl,
         price: item.price,
         featured: !item.featured,
+        isOnWishlist: item.isOnWishlist,
         collectionId: item.collection.id
       },
       refetchQueries: [{query: GET_ITEM_BY_ID, variables: {id: item.id}}]
