@@ -30,20 +30,20 @@ const Header = ({history}) => {
       <Link className='option' to='/shop'>
         SHOP
       </Link>
+      <Link className="option" to="/wishlist">
+        WISHLIST
+      </Link>
       {
         user ? (
-          <div className='option' onClick={logout}>
+          <div className='option last' onClick={logout}>
             SIGN OUT
           </div>
         ) : (
-          <Link className='option' to='/signin'>
+          <Link className='option last' to='/signin'>
             SIGN IN
           </Link>
         )
       }
-      <Link className="option last" to="/wishlist">
-        WISHLIST
-      </Link>
       <CartIcon />
     </div>
     {hidden ? null : <CartDropdown />}

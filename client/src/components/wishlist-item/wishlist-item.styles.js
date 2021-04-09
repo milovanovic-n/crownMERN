@@ -16,6 +16,10 @@ export const ItemImgContainer = styled.div`
   width: 25%;
   margin-right: 5%;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -37,19 +41,32 @@ export const BlockContent = styled.span`
   width: 75%;
   display: flex;
   align-items: center;
-  transition: all 0.3s;
   font-size: 14px;
   font-weight: 300;
+  transition: all 0.3s;
 
   &:hover {
     cursor: pointer;
     transform: scale(1.1);
   }
 
+  @media (max-width: 580px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
   span {
     margin-left: 5px;
     text-transform: uppercase;
     font-size: 11px;
+
+    @media (max-width: 700px) {
+      font-size: 9px;
+    }
+
+    @media (max-width: 580px) {
+      text-align: center;
+    }
   }
 `;
 

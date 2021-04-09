@@ -18,6 +18,7 @@ const WishlistPage = lazy(() => import("../pages/wishlist/wishlist.component"));
 const SignIn = lazy(() => import("../components/sign-in/sign-in.component"));
 const SignUp = lazy(() => import("../components/sign-up/sign-up.component"));
 const AdminPage = lazy(() => import("../pages/admin/admin.component"));
+const ProductPage = lazy(() => import("../pages/product/product.container"));
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
           <Suspense fallback={<Spinner />}>
             <Route exact path='/' component={HomePage} />
             <Route path='/shop' component={ShopPage} />
+            <Route exact path="/product/:productId" component={ProductPage} />
             <Route exact path='/checkout' component={CheckoutPage} />
             <Route exact path="/wishlist" component={WishlistPage} />
             <Route exact path='/signin' render={() => user ? <Redirect to="/"/> : <SignIn />}/>

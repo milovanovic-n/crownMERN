@@ -14,7 +14,7 @@ import { ReactComponent as ShoppingBag } from "../../assets/shopping-bag-white.s
 import AnimatedHeart from "../animated-heart/animated-heart.component";
 
 
-const CollectionItem = ({ item, featured }) => {
+const CollectionItem = ({ item, featured, history }) => {
   const { name, price, imageUrl } = item;
   const { addItem } = useContext(CartContext);
   const { addWishlistItem } = useContext(WishlistContext);
@@ -33,7 +33,7 @@ const CollectionItem = ({ item, featured }) => {
         <div onClick={() => addWishlistItem(item)} className="add__to__whishlist" title="ADD TO WHISHLIST">
           <AnimatedHeart />
         </div>
-        <div className="quick__view" title="QUICK VIEW">
+        <div onClick={() => history.push(`/product/${item.id}`)} className="quick__view" title="QUICK VIEW">
           <i className="fas fa-search"></i>
         </div>
       </CollectionItemOptions>

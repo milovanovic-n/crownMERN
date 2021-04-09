@@ -1,36 +1,43 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
+import { withRouter } from "react-router-dom";
+import { CartContext } from "../../context/cart/cart.reducer";
 
-import {CartContext} from "../../context/cart/cart.reducer";
+import {
+  CheckoutItemContainer,
+  ItemImgcontainer,
+  ItemBlock,
+  QuantityArrow,
+  QuantityValue,
+  RemoveItemBtn
+} from "./checkout-item.styles";
 
-import './checkout-item.styles.scss';
 
-
-const CheckoutItem = ({cartItem}) => {
-  const {addItem, removeItem, clearItem} = useContext(CartContext);
+const CheckoutItem = ({ cartItem, history }) => {
+  const { addItem, removeItem, clearItem } = useContext(CartContext);
   const { name, imageUrl, price, quantity } = cartItem;
   
   return (
-    <div className='checkout-item'>
-      <div className='image-container'>
-        <img src={imageUrl} alt='item' />
-      </div>
-      <span className='name'>{name}</span>
-      <span className='quantity'>
-        <div className='arrow' onClick={() => removeItem(cartItem)}>
+    <CheckoutItemContainer>
+      <ItemImgcontainer onClick={() => history.push(`/product/${cartItem.id}`)}>
+        <img src={imageUrl} alt={`item - ${name}`} />
+      </ItemImgcontainer>
+      <ItemBlock nameBlock onClick={() => history.push(`/product/${cartItem.id}`)}>{name}</ItemBlock>
+      <ItemBlock quantityBlock>
+        <QuantityArrow onClick={() => removeItem(cartItem)}>
           &#10094;
-        </div>
-        <span className='value'>{quantity}</span>
-        <div className='arrow' onClick={() => addItem(cartItem)}>
+        </QuantityArrow>
+        <QuantityValue>{quantity}</QuantityValue>
+        <QuantityArrow onClick={() => addItem(cartItem)}>
           &#10095;
-        </div>
-      </span>
-      <span className='price'>{price}</span>
-      <div className='remove-button' onClick={() => clearItem(cartItem)}>
+        </QuantityArrow>
+      </ItemBlock>
+      <ItemBlock>{price}</ItemBlock>
+      <RemoveItemBtn onClick={() => clearItem(cartItem)}>
         &#10005;
-      </div>
-    </div>
+      </RemoveItemBtn>
+    </CheckoutItemContainer>
   );
 };
 
-export default CheckoutItem;
+export default withRouter(CheckoutItem);
  
